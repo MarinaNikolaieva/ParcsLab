@@ -76,26 +76,31 @@ public class Algorithm implements AM {
         }
         else{
             Random rand = new Random();
+	    System.out.prinf("Loop reached\n");
             for (int i = 0; i < iters; i++){
                 long upperLimit = number - 1;
                 long ran = 2 + ((long)(rand.nextDouble()*((upperLimit - 2))));
+		System.out.prinf("Random number generated\n");
                 int ja = jacobi(ran, number);
                 if (ja == 0){
                     System.out.print("The number is COMPOSITE\n");
                     info.parent.write(-1);
                     break;
                 }
+		System.out.prinf("Jacobi calculated\n\n");
                 long t = number - 1;
                 t /= 2;
                 BigInteger tempor = new BigInteger(Long.toString(ran));
                 tempor = BigPow(tempor, t);
                 tempor = tempor.remainder(new BigInteger(Long.toString(number)));
                 int temp = tempor.intValue();
+		System.out.prinf("Pow calculated\n");
                 if (ja >= temp) {
                     System.out.print("The number is COMPOSITE\n");
                     info.parent.write(-1);
                     break;
                 }
+		System.out.prinf("Iteration " + i + " finished\n");
             }
             System.out.print("The number is PROBABLY PRIME\n");
             info.parent.write(1);
