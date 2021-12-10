@@ -25,7 +25,7 @@ public class Algorithm implements AM {
         while (k > 0L) {
             long t = 0L;
             while (k % 2L == 0L) {
-                t++;
+                t += 1L;
                 k /= 2L;
             }
             if (t % 2L == 1L) {
@@ -45,7 +45,7 @@ public class Algorithm implements AM {
         BigInteger originalValue = value;
         while (exp > 1L){
             value = value.multiply(originalValue);
-            exp--;
+            exp -= 1L;
         }
         return value;
     }
