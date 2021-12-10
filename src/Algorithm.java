@@ -42,11 +42,13 @@ public class Algorithm implements AM {
     }
 
     public BigInteger BigPow(BigInteger value, long exp){
+	System.out.print("Reached BigPow");
         BigInteger originalValue = value;
         while (exp > 1L){
             value = value.multiply(originalValue);
             exp -= 1L;
         }
+	System.out.print("Finished BigPow");
         return value;
     }
     
