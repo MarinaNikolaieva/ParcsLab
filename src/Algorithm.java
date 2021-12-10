@@ -17,22 +17,22 @@ public class Algorithm implements AM {
     
     public int jacobi(long k, long n){
         int jac = 1;
-        if (k < 0) {
-            k = -1;
-            if (n % 4 == 3)
+        if (k < 0L) {
+            k = -k;
+            if (n % 4L == 3L)
                 jac = -jac;
         }
-        while (k > 0) {
-            long t = 0;
-            while (k % 2 == 0) {
+        while (k > 0L) {
+            long t = 0L;
+            while (k % 2L == 0L) {
                 t++;
-                k /= 2;
+                k /= 2L;
             }
-            if (t % 2 == 1) {
-                if (n % 8 == 3 || n % 8 == 5)
+            if (t % 2L == 1L) {
+                if (n % 8L == 3L || n % 8L == 5L)
                     jac = -jac;
             }
-            if (k % 4 == 3 && n % 4 == 3)
+            if (k % 4L == 3L && n % 4L == 3L)
                 jac = -jac;
             long c = k;
             k = n % c;
@@ -43,7 +43,7 @@ public class Algorithm implements AM {
 
     public BigInteger BigPow(BigInteger value, long exp){
         BigInteger originalValue = value;
-        while (exp > 1){
+        while (exp > 1L){
             value = value.multiply(originalValue);
             exp--;
         }
@@ -58,19 +58,19 @@ public class Algorithm implements AM {
 	iters = info.parent.readLong();
 	System.out.print("class Algorithm method run read data from parent server\nNumber = " + number + "\nIters = " +	iters + "\n\n");
         
-        if (number < 0){
+        if (number < 0L){
             number = -number;
         }
         
-        if (number == 2 || number == 3){
+        if (number == 2L || number == 3L){
             System.out.print("The number is PROBABLY PRIME\n");
             info.parent.write(1);
         }
-        else if (number % 2 == 0){
+        else if (number % 2L == 0L){
             System.out.print("The number is COMPOSITE\n");
             info.parent.write(-1);
         }
-        else if (number == 1 || number == 0){
+        else if (number == 1L || number == 0L){
             System.out.print("The number is COMPOSITE\n");
             info.parent.write(-1);
         }
@@ -78,8 +78,8 @@ public class Algorithm implements AM {
             Random rand = new Random();
 	    System.out.prinf("Loop reached\n");
             for (int i = 0; i < iters; i++){
-                long upperLimit = number - 1;
-                long ran = 2 + ((long)(rand.nextDouble()*((upperLimit - 2))));
+                long upperLimit = number - 1L;
+                long ran = 2L + ((long)(rand.nextDouble()*((upperLimit - 2L))));
 		System.out.prinf("Random number generated\n");
                 int ja = jacobi(ran, number);
                 if (ja == 0){
@@ -88,8 +88,8 @@ public class Algorithm implements AM {
                     break;
                 }
 		System.out.prinf("Jacobi calculated\n\n");
-                long t = number - 1;
-                t /= 2;
+                long t = number - 1L;
+                t /= 2L;
                 BigInteger tempor = new BigInteger(Long.toString(ran));
                 tempor = BigPow(tempor, t);
                 tempor = tempor.remainder(new BigInteger(Long.toString(number)));
