@@ -28,13 +28,13 @@ public class Main implements AM {
     
     @Override
     public void run(AMInfo info){
-        long number, iters;
+        int number, iters;
         int threads;
 	try
 	{
             BufferedReader in = new BufferedReader(new FileReader(info.curtask.findFile("input.txt")));
-            number = Long.parseLong(in.readLine());
-            iters = Long.parseLong(in.readLine());
+            number = Integer.parseInt(in.readLine());
+            iters = Integer.parseInt(in.readLine());
             threads = Integer.parseInt(in.readLine());
 	}
 	catch (IOException e)
@@ -55,7 +55,7 @@ public class Main implements AM {
 	System.out.println("time = " + ((tEnd - tStart) / 1000000) + "ms");
     }
     
-    public static boolean solve(AMInfo info, long number, long iters, int threads){
+    public static boolean solve(AMInfo info, int number, int iters, int threads){
         //NEEDED finish this part, this is where the algo is
         List<Integer> reses = new ArrayList<>();
         List<point> points = new ArrayList<>();
