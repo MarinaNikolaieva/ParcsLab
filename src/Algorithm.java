@@ -15,24 +15,24 @@ import java.util.Random;
 
 public class Algorithm implements AM {
     
-    public int jacobi(long k, long n){
+    public int jacobi(int k, int n){
         int jac = 1;
-        if (k < 0L) {
+        if (k < 0) {
             k = -k;
-            if (n % 4L == 3L)
+            if (n % 4 == 3)
                 jac = -jac;
         }
-        while (k > 0L) {
-            long t = 0L;
-            while (k % 2L == 0L) {
-                t += 1L;
-                k /= 2L;
+        while (k > 0) {
+            long t = 0;
+            while (k % 2 == 0) {
+                t += 1;
+                k /= 2;
             }
-            if (t % 2L == 1L) {
-                if (n % 8L == 3L || n % 8L == 5L)
-                    jac = -jac;
+            if (t % 2 == 1) {
+                if (n % 8 == 3 || n % 8 == 5)
+                    jac = -jac
             }
-            if (k % 4L == 3L && n % 4L == 3L)
+            if (k % 4 == 3 && n % 4 == 3)
                 jac = -jac;
             long c = k;
             k = n % c;
@@ -55,57 +55,61 @@ public class Algorithm implements AM {
     @Override
     public void run(AMInfo info){
         //NEEDED finish this part as well DONE?
-        long number, iters;
-	number = info.parent.readLong();
-	iters = info.parent.readLong();
+        int number, iters;
+	number = info.parent.readInt();
+	iters = info.parent.readInt();
 	System.out.print("class Algorithm method run read data from parent server\nNumber = " + number + "\nIters = " +	iters + "\n\n");
         
-        if (number < 0L){
+        if (number < 0){
             number = -number;
         }
         
-        if (number == 2L || number == 3L){
-            System.out.print("The number is PROBABLY PRIME\n");
+        if (number == 2 || number == 3){
+            System.out.print("2 or 3. The number is PROBABLY PRIME\n");
             info.parent.write(1);
         }
-        else if (number % 2L == 0L){
-            System.out.print("The number is COMPOSITE\n");
+        else if (number % 2 == 0){
+            System.out.print("Pair. The number is COMPOSITE\n");
             info.parent.write(-1);
         }
-        else if (number == 1L || number == 0L){
-            System.out.print("The number is COMPOSITE\n");
+        else if (number == 1 || number == 0){
+            System.out.print("1 or 0. The number is COMPOSITE\n");
             info.parent.write(-1);
         }
         else{
             Random rand = new Random();
 	    System.out.prinf("Loop reached\n");
+		boolean got = false;
             for (int i = 0; i < iters; i++){
-                long upperLimit = number - 1L;
-                long ran = 2L + ((long)(rand.nextDouble()*((upperLimit - 2L))));
+                int ran = rand.nextInt(number - 2) + 2;
 		System.out.prinf("Random number generated\n");
                 int ja = jacobi(ran, number);
                 if (ja == 0){
-                    System.out.print("The number is COMPOSITE\n");
+                    System.out.print("Dividor found. The number is COMPOSITE\n");
+		    got = true;
                     info.parent.write(-1);
                     break;
                 }
 		System.out.prinf("Jacobi calculated\n\n");
-                long t = number - 1L;
-                t /= 2L;
-                BigInteger tempor = new BigInteger(Long.toString(ran));
-                tempor = BigPow(tempor, t);
-                tempor = tempor.remainder(new BigInteger(Long.toString(number)));
+                int t = number - 1;
+                t /= 2;
+                BigInteger tempor = new BigInteger(Integer.toString(ran));
+                tempor = tempor.pow(t);
+                tempor = tempor.remainder(new BigInteger(Integer.toString(number)));
                 int temp = tempor.intValue();
 		System.out.prinf("Pow calculated\n");
                 if (ja >= temp) {
-                    System.out.print("The number is COMPOSITE\n");
+                    System.out.print("Jacobi symbol. The number is COMPOSITE\n");
+		    got = true;
                     info.parent.write(-1);
                     break;
                 }
 		System.out.prinf("Iteration " + i + " finished\n");
             }
-            System.out.print("The number is PROBABLY PRIME\n");
-            info.parent.write(1);
+	    if (!got){
+                System.out.print("The number is PROBABLY PRIME\n");
+                info.parent.write(1);
+	    }
         }
     }
 }
