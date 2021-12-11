@@ -16,4 +16,4 @@ out/Algorithm.jar: out/parcs.jar src/Algorithm.java
 build: out/Main.jar out/Algorithm.jar
 
 run: out/Main.jar out/Algorithm.jar
-	@cd out && java -cp 'parcs.jar:Main.jar' Main
+	@cd out && java -cp 'parcs.jar:Main.jar' tempor/Main
