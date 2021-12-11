@@ -34,7 +34,7 @@ public class Algorithm implements AM {
             }
             if (k % 4 == 3 && n % 4 == 3)
                 jac = -jac;
-            long c = k;
+            int c = k;
             k = n % c;
             n = c;
         }
@@ -78,11 +78,11 @@ public class Algorithm implements AM {
         }
         else{
             Random rand = new Random();
-	    System.out.prinf("Loop reached\n");
+	    System.out.print("Loop reached\n");
 		boolean got = false;
             for (int i = 0; i < iters; i++){
                 int ran = rand.nextInt(number - 2) + 2;
-		System.out.prinf("Random number generated\n");
+		System.out.print("Random number generated\n");
                 int ja = jacobi(ran, number);
                 if (ja == 0){
                     System.out.print("Dividor found. The number is COMPOSITE\n");
@@ -90,21 +90,21 @@ public class Algorithm implements AM {
                     info.parent.write(-1);
                     break;
                 }
-		System.out.prinf("Jacobi calculated\n\n");
+		System.out.print("Jacobi calculated\n\n");
                 int t = number - 1;
                 t /= 2;
                 BigInteger tempor = new BigInteger(Integer.toString(ran));
                 tempor = tempor.pow(t);
                 tempor = tempor.remainder(new BigInteger(Integer.toString(number)));
                 int temp = tempor.intValue();
-		System.out.prinf("Pow calculated\n");
+		System.out.print("Pow calculated\n");
                 if (ja >= temp) {
                     System.out.print("Jacobi symbol. The number is COMPOSITE\n");
 		    got = true;
                     info.parent.write(-1);
                     break;
                 }
-		System.out.prinf("Iteration " + i + " finished\n");
+		System.out.print("Iteration " + i + " finished\n");
             }
 	    if (!got){
                 System.out.print("The number is PROBABLY PRIME\n");
